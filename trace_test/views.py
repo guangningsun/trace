@@ -4,10 +4,9 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpResponse
 import json
-from models import TraceInfo
+from trace_test.models import TraceInfo, UserInfo
 
 
 def user_login(request):
@@ -22,10 +21,12 @@ def upload_trace(request):
                          timestamp=request.POST['timestamp']
                          )
         dev1.save()
-    return HttpResponseRedirect("/reload_dev_web")
+        return HttpResponse("{\"error\":0,\"errmsg\":\"upload trace success\"}")
+    else:
+        return HttpResponse("{\"error\":1,\"errmsg\":\"upload trace false\"}")
 
 
-def get_user_list(request):
+def remove_trace_by_id(request):
     pass
 
 
@@ -41,18 +42,47 @@ def get_trace_list(request):
 
 
 def get_trace_by_uid(request):
-    return HttpResponse("<p>删除成功</p>")
+    user_id = request.GET['id']
+    if user_id:
+        user_info = TraceInfo.objects.get(uid=user_id)
+    return HttpResponse(json.dumps(user_info), content_type="application/json")
 
 
-def get_all_data(request):
+def create_user(request):
+    if request.POST:
+        user1 = UserInfo(uid=request.POST['uid'],
+                         username=request.POST['username'],
+                         user_role=request.POST['user_role'],
+                         password=request.POST['password'],
+                         phone_number=request.POST['phone_number']
+                         )
+        user1.save()
+    return HttpResponse("<p>保存成功</p>")
+
+
+def remove_user(request):
+    pass
+
+
+def get_user_by_id(request):
+    pass
+
+
+def get_user_list(request):
     list_response = []
-    list_dev = TraceInfo.objects.all()
+    list_dev = UserInfo.objects.all()
     for res in list_dev:
         dict_tmp = {}
         dict_tmp.update(res.__dict__)
         dict_tmp.pop("_state", None)
         list_response.append(dict_tmp)
     return HttpResponse(json.dumps(list_response), content_type="application/json")
+
+
+def modify_user_info_by_id(request):
+    pass
+
+
 
 
 

@@ -16,6 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from trace_test import views
+import django
+import os
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tracetest.settings")
+django.setup()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
