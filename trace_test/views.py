@@ -42,10 +42,11 @@ def get_trace_list(request):
 
 
 def get_trace_by_uid(request):
-    user_id = request.GET['id']
-    if user_id:
-        user_info = TraceInfo.objects.get(uid=user_id)
-    return HttpResponse(json.dumps(user_info), content_type="application/json")
+    if request.POST:
+        user_id = request.POST['user_id']
+        if user_id:
+            user_info = TraceInfo.objects.get(uid=user_id)
+        return HttpResponse(json.dumps(user_info), content_type="application/json")
 
 
 def create_user(request):
@@ -85,6 +86,7 @@ def modify_user_info_by_id(request):
     pass
 
 
-
+def obj_2_json(obj):
+    return {}
 
 
