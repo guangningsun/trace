@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
-import json
+import json,time
 from trace_test.models import TraceInfo, UserInfo
 
 
@@ -50,14 +50,16 @@ def get_trace_by_uid(request):
 
 def create_user(request):
     if request.POST:
-        user1 = UserInfo(uid=request.POST['uid'],
+        user1 = UserInfo(uid=int(time.time()),
                          username=request.POST['username'],
                          user_role=request.POST['user_role'],
                          password=request.POST['password'],
                          phone_number=request.POST['phone_number']
                          )
         user1.save()
-    return HttpResponse("<p>保存成功</p>")
+        return HttpResponse("{\"error\":0,\"errmsg\":\"create user success\"}")
+    else:
+        return HttpResponse("{\"error\":1,\"errmsg\":\"create user false\"}")
 
 
 def remove_user(request):
