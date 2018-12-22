@@ -23,13 +23,67 @@
 ### api调用方法
 
 ```
-创建用户
-114.116.64.103:8000/create_user
-方法
-POST
-参数
-username,password,role,phone_number
+1.创建用户
+请求路径：114.116.64.103:8000/create_user
+请求方法：POST
+所需参数：username,password,role,phone_number
+返回参数：{"error":0,"errmsg":"create user success"}
 
+2.通过traceid获取trace内容
+请求路径：114.116.64.103:8000/get_trace_by_traceid
+请求方法：POST
+所需参数：trace_id
+返回参数：
+返回失败结果：{"error":0,"errmsg":"create user success"} 
+
+3.通过用户id,起止时间来获取该时间段该用户的轨迹信息
+请求路径：114.116.64.103:8000/get_trace_by_uid
+请求方法：POST
+所需参数：user_id,start_time,end_time
+返回参数：
+
+
+4.通过用户id来获取用户信息
+请求路径：114.116.64.103:8000/get_user_by_uid
+请求方法：POST
+所需参数：user_id
+返回参数：{"error":1,"errmsg":"the user that you request doesn`t exist"}
+
+
+5.获取用户列表
+请求路径：114.116.64.103:8000/get_user_list
+请求方法：GET
+所需参数：null
+返回参数：{
+    "user_list": [
+        {
+            "username": "lvaid",
+            "phone_number": "15333333",
+            "uid": "1543848336",
+            "password": "lvaid",
+            "user_role": "1",
+            "id": 1
+        },
+        {
+            "username": "lvaid1",
+            "phone_number": "153333333",
+            "uid": "1545077231",
+            "password": "lvaid1",
+            "user_role": "1",
+            "id": 2
+        }
+    ]
+}	
+
+
+6.上传用户轨迹信息
+请求路径：114.116.64.103:8000/upload_trace
+请求方法：POST
+所需参数：uid,lng,lat
+返回参数：{
+            "error": 0,
+            "errmsg": "upload trace success"
+           }
 
 ```
 
