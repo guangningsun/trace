@@ -29,5 +29,7 @@ urlpatterns = [
     url(r'^get_user_list/', views.get_user_list),
     url(r'^get_trace_list/', views.get_trace_list),
     url(r'^get_trace_by_uid/', views.get_trace_by_uid),
+    url(r'^get_user_by_uid/', views.get_user_by_uid),
     url(r'^create_user/', views.create_user),
+    url(r'^get_trace_by_traceid/', views.get_trace_by_traceid),
 ]
